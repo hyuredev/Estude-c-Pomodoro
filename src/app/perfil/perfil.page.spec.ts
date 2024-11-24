@@ -1,17 +1,41 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PerfilPage } from './perfil.page';
+import { Component } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth'; // Certifique-se de importar o serviço de autenticação do Firebase
+import { SessaoService } from '../services/sessao.service';
+import { Router } from '@angular/router';
 
-describe('PerfilPage', () => {
-  let component: PerfilPage;
-  let fixture: ComponentFixture<PerfilPage>;
+@Component({
+  selector: 'app-perfil',
+  templateUrl: './perfil.page.html',
+  styleUrls: ['./perfil.page.scss'],
+})
+export class PerfilPage {
+  usuarioLogado: any;
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(PerfilPage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  constructor(
+    private afAuth: AngularFireAuth,
+    private sessaoService: SessaoService,
+    private router: Router) 
+    {}
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  ngOnInit(): void {
+    // Inscreve-se no BehaviorSubject para obter os dados do usuário
+    this.sessaoService.usuarioLogado$.subscribe(usuarioData => {
+      this.usuarioLogado = usuarioData;
+    });
+  }
+
+
+  logout() {
+    this.afAuth.signOut().then(() => {
+      // Após o logout, redireciona para a página inicial
+      this.router.navigate(['/tabs']);
+    }).catch(error => {
+      console.error('Erro ao fazer logout:', error);
+    });
+  }
+
+  goToTab1() {
+    this.router.navigate(['/tabs']);
+  }
+
+}

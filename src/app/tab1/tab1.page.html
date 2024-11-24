@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title slot="start">Atividades</ion-title>
     <ion-buttons slot="end">
@@ -9,153 +9,88 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <ion-button color="primary" expand="full" (click)="modal.present()">Adicionar Tarefa</ion-button>
+<ion-content>
+  <!-- Container com fundo transparente e blur -->
+  <div class="blur-container">
+    <!-- Seletor de modo (Pomodoro, Pausa Curta, Pausa Longa) -->
+    <ion-segment (ionChange)="changeMode($event)" value="pomodoro">
+      <ion-segment-button value="pomodoro">
+        <ion-label>Pomodoro</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="shortBreak">
+        <ion-label>Pausa <br/>Curta</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="longBreak">
+        <ion-label>Pausa <br/>Longa</ion-label>
+      </ion-segment-button>
+    </ion-segment>
 
-  <ion-list>
-    <ion-item *ngFor="let task of tasks" [ngStyle]="{'border': getBorderStyle(task.priority)}">
-      <!-- Exibição normal da tarefa -->
-      <ion-label *ngIf="!task.isEditing">
-        <h2>{{ task.title }}</h2>
-        <p *ngIf="task.description">{{ task.description }}</p>
-        <p>Tempo: {{ task.time }} segundos</p>
-        <p>Prioridade: {{ task.priority }}</p>
-      </ion-label>
-  
-      <!-- Campos de edição -->
-      <div *ngIf="task.isEditing" style="width: 100%;">
-        <ion-item lines="full">
-          <ion-label position="stacked">Título da tarefa</ion-label>
-          <ion-input [(ngModel)]="task.title" placeholder="Título da tarefa"></ion-input>
-        </ion-item>
-        <ion-item lines="full">
-          <ion-label position="stacked">Descrição</ion-label>
-          <ion-input [(ngModel)]="task.description" placeholder="Descrição"></ion-input>
-        </ion-item>
-        <ion-item lines="full">
-          <ion-label position="stacked">Tempo (segundos)</ion-label>
-          <ion-input type="number" [(ngModel)]="task.time" placeholder="Tempo (segundos)"></ion-input>
-        </ion-item>
-        <ion-item lines="full">
-          <ion-label position="stacked">Prioridade</ion-label>
-          <ion-select [(ngModel)]="task.priority" placeholder="Prioridade">
-            <ion-select-option value="alta">Alta</ion-select-option>
-            <ion-select-option value="media">Média</ion-select-option>
-            <ion-select-option value="baixa">Baixa</ion-select-option>
-          </ion-select>
-        </ion-item>
-  
-        <!-- Botões de controle de edição -->
-        <ion-buttons slot="end">
-          <!-- Botão Cancelar -->
-          <ion-button (click)="task.isEditing = false" color="medium">
-            Cancelar
-          </ion-button>
-  
-          <!-- Botão Salvar -->
-          <ion-button (click)="save(task)" color="primary">
-            Confirmar
-          </ion-button>
-  
-          <!-- Botão Excluir -->
-          <ion-button color="danger" (click)="delete(task.id)">
-            Deletar
-          </ion-button>
-        </ion-buttons>
-      </div>
-  
-      <!-- Botões de controle (apenas se não estiver em edição) -->
-      <ion-buttons slot="end" *ngIf="!task.isEditing">
-        <!-- Botão Play (mostra apenas se a tarefa não está rodando e não está em edição) -->
-        <ion-button *ngIf="!task.isRunning && task.time > 0" (click)="play(task.id)">
-          <ion-icon name="play"></ion-icon>
-        </ion-button>
-  
-        <!-- Botão Pause (mostra apenas se a tarefa está rodando e não está em edição) -->
-        <ion-button *ngIf="task.isRunning" (click)="pause(task.id)">
-          <ion-icon name="pause"></ion-icon>
-        </ion-button>
-  
-        <!-- Botão Reset (mostra apenas se a tarefa não está rodando e o tempo é menor que o inicial) -->
-        <ion-button *ngIf="!task.isRunning && task.time < task.initialTime" (click)="reset(task.id)">
-          <ion-icon name="refresh"></ion-icon>
-        </ion-button>
-  
-        <!-- Botão Editar -->
-        <ion-button (click)="edit(task)">
-          <ion-icon name="create"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-item>
-  </ion-list>
+    <!-- Timer Display -->
+    <div class="timer-display">
+      <h1>{{ displayMinutes }}:{{ displaySeconds }}</h1>
+    </div>
 
-  <!-- Modal para adicionar tarefa -->
-  <ion-modal #modal>
-    <ng-template>
-      <ion-header>
-        <ion-toolbar>
-          <ion-title>Adicionar Tarefa</ion-title>
-          <ion-buttons slot="end">
-            <ion-button color="danger" (click)="cancel()">Cancelar</ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
+    <!-- Botões de Controle do Timer -->
+    <div class="button-group">
+      <ion-button (click)="toggleTimer()" expand="block">
+        {{ isRunning ? 'Pausar' : 'Iniciar' }}
+      </ion-button>
+
+      <ion-button *ngIf="isRunning && hasStarted" (click)="skipTimer()" expand="block" color="secondary">
+        Pular
+      </ion-button>
+    </div>
+
+    <!-- Criacao de Tarefas -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Criar Tarefa</ion-card-title>
+      </ion-card-header>
   
-      <ion-content class="ion-padding">
+      <ion-card-content>
         <ion-item>
-          <ion-label position="stacked">Título</ion-label>
-          <ion-input [(ngModel)]="newTaskTitle" placeholder="Título da tarefa"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Descrição (opcional)</ion-label>
-          <ion-input [(ngModel)]="newTaskDescription" placeholder="Descrição da tarefa"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Tempo (minutos)</ion-label>
-          <ion-input type="number" [(ngModel)]="newTaskTime" placeholder="Tempo em minutos"></ion-input>
-        </ion-item>
-        <ion-item (click)="priorityModal.present()">
-          <ion-label position="stacked">Prioridade</ion-label>
-          <ion-input [value]="newTaskPriority" readonly></ion-input>
+          <ion-label position="floating">Título</ion-label>
+          <ion-input [(ngModel)]="taskTitle" type="text"></ion-input>
         </ion-item>
   
-        <!-- Mensagem de erro -->
-        <ion-item *ngIf="errorMessage" color="danger">
-          <ion-label>{{ errorMessage }}</ion-label>
+        <ion-item>
+          <ion-label position="floating">Ciclos</ion-label>
+          <ion-input [(ngModel)]="taskCycles" type="number" placeholder="Número de ciclos" min="1"></ion-input>
         </ion-item>
-      </ion-content>
   
-      <ion-footer>
-        <ion-button color="primary" expand="full" (click)="addTask()">Adicionar</ion-button>
-      </ion-footer>
-    </ng-template>
-  </ion-modal>
+        <ion-button expand="full" (click)="createTask()">Criar Tarefa</ion-button>
+      </ion-card-content>
+    </ion-card>
+  
+    <ion-list class="custom-list">
+      <ion-item *ngFor="let task of tasks" class="custom-item">
+        <ion-label class="custom-label">
+          <h2>{{ task.title }}</h2>
+          <p>Ciclos: {{ task.cycles }}</p>
+          <p>Status: {{ task.status }}</p>
+        </ion-label>
+        <ion-button color="primary" (click)="toggleTaskStatus(task)">
+          {{ task.isSelected ? 'Pausar' : 'Play' }}
+        </ion-button>
+      </ion-item>
+    </ion-list>
 
-  <!-- Modal de Prioridade -->
-  <ion-modal #priorityModal>
-    <ng-template>
-      <ion-header>
-        <ion-toolbar>
-          <ion-title>Escolher Prioridade</ion-title>
-          <ion-buttons slot="end">
-            <ion-button (click)="priorityModal.dismiss()">Fechar</ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
+    <!-- Tarefas Concluidas -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Tarefas Concluídas</ion-card-title>
+      </ion-card-header>
 
-      <ion-content>
+      <ion-card-content>
         <ion-list>
-          <ion-item (click)="newTaskPriority='baixa'; priorityModal.dismiss()">
-            <ion-label>Baixa</ion-label>
-          </ion-item>
-          <ion-item (click)="newTaskPriority='media'; priorityModal.dismiss()">
-            <ion-label>Média</ion-label>
-          </ion-item>
-          <ion-item (click)="newTaskPriority='alta'; priorityModal.dismiss()">
-            <ion-label>Alta</ion-label>
+          <ion-item *ngFor="let task of completedTasks">
+            <ion-label>
+              <h2>{{ task.title }} - Concluída</h2>
+              <p>Ciclos: {{ task.cycles }}</p>
+            </ion-label>
           </ion-item>
         </ion-list>
-      </ion-content>
-    </ng-template>
-  </ion-modal>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

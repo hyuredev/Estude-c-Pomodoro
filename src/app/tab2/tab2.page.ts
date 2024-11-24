@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
 import { CalendarService } from '../calendar.service';
 
 @Component({
@@ -11,7 +11,7 @@ export class Tab2Page implements OnInit {
   holidays: any[] = [];
 
   constructor(
-    private navCtrl: NavController, 
+    private router: Router,
     private calendarService: CalendarService
   ) {}
 
@@ -20,7 +20,7 @@ export class Tab2Page implements OnInit {
   }
 
   openProfile() {
-    this.navCtrl.navigateForward('/login-cadastro');
+    this.router.navigate(['/login-cadastro']);
   }
 
   loadHolidays() {

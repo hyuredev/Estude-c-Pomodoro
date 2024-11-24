@@ -47,10 +47,26 @@ ion-title{
   }
 
 ion-content {
-  --background: linear-gradient(135deg, rgb(33, 38, 76), rgb(242, 103, 235)) !important; /* Degradê diagonal */
+  --background: linear-gradient(135deg, rgb(119, 0, 255), rgb(255, 0, 242)) !important; /* Degradê diagonal */
   }
 
 p{
   color: rgb(255, 255, 255);
 }
 
+ion-icon {
+  outline: none;  /* Remove o contorno padrão ao focar o ícone */
+  border: none;  /* Remove a borda ao redor do ícone */
+  transition: transform 0.2s ease, color 0.2s ease;  /* Efeito de transição suave para o hover */
+}
+
+ion-tab-button:hover ion-icon {
+  transform: scale(1.2);  /* Aumenta o tamanho do ícone no hover */
+  color: #3880ff;  /* Mudança de cor no hover (opcional) */
+}
+
+ion-button:hover ion-icon {
+  transform: scale(1.2);  /* Aumenta o tamanho do ícone no hover */
+  color: #3880ff;  /* Mudança de cor no hover (opcional) */
+}
+  

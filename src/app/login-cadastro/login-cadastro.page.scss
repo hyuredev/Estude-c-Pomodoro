@@ -43,6 +43,7 @@ ion-input {
 
 .custom-button {
   height: 50px; /* Ajuste a altura conforme necessário */
+  --color: white;
 }
 
 .login-message {
@@ -89,7 +90,15 @@ ion-item:hover {
 ion-item {
   background: white; /* Fundo branco para os itens */
   border-radius: 8px; /* Bordas arredondadas para itens */
-  margin-bottom: 10px; /* Espaçamento entre itens */
+  margin: 15px; /* Espaçamento entre itens */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
   transition: transform 0.2s; /* Animação ao passar o mouse */
 }
+
+ion-input-password-toggle{
+  margin-top: -15px;
+}
+
+ion-content {
+  --background: linear-gradient(135deg, rgb(195, 0, 255), rgb(2, 0, 94)) !important; /* Degradê diagonal */
+  }

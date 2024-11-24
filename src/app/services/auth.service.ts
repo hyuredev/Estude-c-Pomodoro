@@ -40,8 +40,6 @@ export class AuthService {
           email: email,
           createdAt: firebase.firestore.FieldValue.serverTimestamp()
         });
-
-      this.router.navigate(['/login-cadastro']); // Navega para a página de tabs após o login
       }
     } catch (error) {
       console.error('Erro ao registrar usuário:', error);

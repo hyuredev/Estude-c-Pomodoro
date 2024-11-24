@@ -1,9 +1,45 @@
-ion-button {
-  --color: white; /* Cor do texto do botão */
-  --border-radius: 8px; /* Borda arredondada */
-  font-weight: bold; /* Texto em negrito */
-  border-radius: 8px; /* Bordas arredondadas do modal */
-  height: 50px; /* Ajuste a altura conforme necessário */
+.timer-display {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.button-group {
+  margin-top: 20px;
+}
+
+ion-card {
+  margin: 10px 0;
+}
+
+ion-card-title {
+  font-weight: bold;
+}
+
+ion-card-content {
+  font-size: 14px;
+}
+
+ion-button[expand='full'] {
+  margin-top: 20px;
+}
+
+h1{
+  font-size: 80px;
+}
+ion-content {
+  --background: transparent; /* Torna o fundo do ion-content transparente */
+  color: white; /* Define a cor do texto como branco */
+}
+
+.blur-container {
+  background: rgba(25, 0, 255, 0.2); /* Fundo semi-transparente */
+  border-radius: 20px; /* Bordas arredondadas */
+  backdrop-filter: blur(10px); /* Aplica o efeito de desfoque */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Sombra suave ao redor do contêiner */
+}
+
+h1, ion-label {
+  color: white; /* Define a cor das letras como branca */
 }
 
 ion-list {
@@ -12,23 +48,11 @@ ion-list {
   padding: 0;
 }
 
-ion-footer{
-  background: transparent;
-}
-
 ion-item {
-  border-radius: 8px; /* Bordas arredondadas para itens */
-  margin-bottom: 10px; /* Espaçamento entre itens */
+  border-radius: 4px; /* Bordas arredondadas para itens */
+  margin: 10px; /* Espaçamento entre itens */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  transition: transform 0.2s; /* Animação ao passar o mouse */
-}
-
-ion-item[lines="full"] {
-  margin-top: 10px; /* Espaço entre os campos do formulário */
-}
-
-ion-item:hover {
-  transform: scale(1.02); /* Leve aumento ao passar o mouse */
+  transition: transform 0.1s; /* Animação ao passar o mouse */
 }
 
 h2 {
@@ -36,30 +60,32 @@ h2 {
   margin: 0; /* Remove margem padrão */
 }
 
-p {
-  margin: 4px 0; /* Margem vertical para os parágrafos */
+/* Aplica o estilo ao ion-list */
+.custom-list {
+  background: transparent; /* Fundo transparente */
+  background: rgba(0, 0, 0, 0.3); /* Fundo transparente com uma leve sombra */
+  backdrop-filter: blur(8px); /* Aplica o efeito de blur no fundo */
+  padding: 0; /* Remove o padding padrão da lista */
+  border-radius: 8px; /* Bordas arredondadas para dar um visual suave */
 }
 
-ion-label {
-  color: #495057; /* Cor do texto */
+/* Estiliza cada item da lista */
+.custom-item {
+  background: transparent; /* Fundo transparente */
+  border: 2px dotted white; /* Bordas pontilhadas brancas */
+  margin-bottom: 8px; /* Espaçamento entre os itens */
+  padding: 10px; /* Padding para o conteúdo dentro do item */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Sombra suave para destacar o item */
+  backdrop-filter: blur(6px); /* Aplica o blur no fundo do item */
 }
 
-ion-select {
-  margin-top: 10px; /* Espaçamento superior no select */
+/* Estiliza os títulos (h2) para ficarem mais visíveis */
+.custom-item h2 {
+  font-size: 18px;
+  font-weight: bold;
 }
 
-ion-modal {
-  border-radius: 8px; /* Bordas arredondadas do modal */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Sombra do modal */
-}
-
-ion-footer {
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-}
-
-
-.error-message {
-  color: #b64b56; /* Vermelho para mensagens de erro */
-  font-weight: bold; /* Negrito para destaque */
+/* Estiliza os parágrafos (p) para ficarem mais legíveis */
+.custom-item p {
+  font-size: 14px;
 }

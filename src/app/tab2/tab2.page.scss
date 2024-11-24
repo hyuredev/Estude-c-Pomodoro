@@ -1,19 +1,82 @@
+.timer-display {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.button-group {
+  margin-top: 20px;
+}
+
+ion-card {
+  margin: 10px 0;
+}
+
+ion-card-header {
+  background-color: #f4f4f4;
+}
+
+ion-card-title {
+  font-weight: bold;
+}
+
+ion-card-content {
+  font-size: 14px;
+}
+
+ion-button {
+  margin-top: 10px;
+}
+
+ion-segment {
+  margin: 20px 0;
+}
+
+ion-list {
+  margin-top: 20px;
+}
+
+ion-button[expand='full'] {
+  margin-top: 20px;
+}
+
+h1{
+  font-size: 80px;
+}
+ion-content {
+  --background: transparent; /* Torna o fundo do ion-content transparente */
+  color: white; /* Define a cor do texto como branco */
+}
+
+.blur-container {
+
+  background: rgba(255, 255, 255, 0.2); /* Fundo semi-transparente */
+  border-radius: 20px; /* Bordas arredondadas */
+  padding: 20px;
+  backdrop-filter: blur(10px); /* Aplica o efeito de desfoque */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Sombra suave ao redor do contêiner */
+}
+
+h1, ion-label {
+  color: white; /* Define a cor das letras como branca */
+}
+
+
 .calendar {
-    display: flex;
-    flex-direction: column; /* Um mês por linha */
-    margin: 10px;
-  }
-  
-  .month {
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-  }
-  
-  .upcoming-holidays {
-    margin-top: 20px;
-    border-top: 2px solid #ccc;
-    padding-top: 10px;
-  }
+  display: flex;
+  flex-direction: column; /* Um mês por linha */
+  margin: 10px;
+}
+
+.month {
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.upcoming-holidays {
+  margin-top: 20px;
+  border-top: 2px solid #ccc;
+  padding-top: 10px;
+}

@@ -1,1 +1,22 @@
-
+ion-tab-bar {
+    height: 80px; /* Ajuste o tamanho da barra de tabs */
+    --padding-bottom: 10px; /* Reduz o padding inferior para um ajuste mais preciso */
+  }
+  
+  ion-tab-button {
+    height: 100%; /* Garante que o botão da tab ocupe toda a altura disponível */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: center; /* Centraliza horizontalmente */
+    font-size: 14px; /* Tamanho da fonte do texto */
+  }
+  
+  ion-icon {
+    font-size: 28px; /* Aumenta o tamanho do ícone */
+  }
+  
+  ion-label {
+    font-size: 8px; /* Ajuste o tamanho do texto */
+    margin-top: 2px; /* Distância entre o ícone e o texto */
+  }

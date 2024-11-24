@@ -1,7 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
-import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import firebase from 'firebase/compat/app';
@@ -22,7 +21,6 @@ export class LoginCadastroPage{
   showPassword: boolean = false;
 
   constructor(
-    private navController: NavController,
     private authService: AuthService,
     private router: Router
   ) {}
@@ -31,6 +29,7 @@ export class LoginCadastroPage{
     this.authService.registrarUsuario(this.email, this.password, this.name, this.cpf)
     .then(() => {
       console.log("Usuário registrado com sucesso!");
+      this.cancel();
     })
     .catch(error => {
       console.error("Erro no registro:", error);
@@ -42,7 +41,7 @@ export class LoginCadastroPage{
     .then(userData => {
       if (userData) {
         console.log("Usuário logado com sucesso!", userData);
-        this.router.navigate(['/tabs']);
+        this.router.navigate(['/perfil']);
       } else {
         console.log("Dados do usuário não encontrados.");
       }
@@ -57,7 +56,7 @@ export class LoginCadastroPage{
   }
     
   goToTab1() {
-    this.navController.navigateForward('/tabs'); // Navega para a aba desejada
+    this.router.navigate(['/tabs']);
   }
 
   cancel() {
@@ -71,6 +70,7 @@ export class LoginCadastroPage{
     this.name = '';
     this.cpf = '';
   }
+  
 
   openSignupModal() {
     this.modal?.present(); // Abre o modal de cadastro

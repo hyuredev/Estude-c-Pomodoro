@@ -36,16 +36,6 @@
     </ion-card-content>
   </ion-card>
 
-    <ion-list>
-      <ion-item *ngFor="let task of completedTasks">
-        <ion-label>
-          <h2>{{ task.title }}</h2>
-          <p>{{ task.description }}</p>
-          <p>Tempo inicial: {{ task.initialTime / 60 }} minutos</p>
-        </ion-label>
-      </ion-item>
-    </ion-list>
-
   <!-- Atividades Recentes -->
   <ion-card>
     <ion-card-header>
@@ -53,11 +43,11 @@
     </ion-card-header>
     <ion-card-content>
       <ion-list>
-        <ion-item *ngFor="let activity of recentActivities">
+        <ion-item *ngFor="let task of completedTasks">
           <ion-label>
-            <h2>{{ activity.title }}</h2>
-            <p>{{ activity.description }}</p>
-            <p>Tempo Gasto: {{ formatTime(activity.timeSpent) }}</p>
+            <h2>{{ task.title }}</h2>
+            <p>{{ task.description }}</p>
+            <p>Tempo Gasto: {{ task.initialTime / 60 }} minutos</p>
           </ion-label>
         </ion-item>
       </ion-list>

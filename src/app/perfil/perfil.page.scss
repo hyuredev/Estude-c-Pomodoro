@@ -1,43 +1,66 @@
-/* perfil.page.scss */
-
 /* Estilo geral do card */
 ion-card {
-    margin: 0; /* Remove margens */
-    padding: 20px; /* Adiciona um pouco de preenchimento interno */
-    background-color: #04249c; /* Azul escuro */
-    border-radius: 0; /* Remove os cantos arredondados */
-    width: 100%; /* Garante que o card preencha a tela horizontalmente */
-  }
+  margin: 0; /* Remove margens */
+  padding: 20px; /* Adiciona um pouco de preenchimento interno */
+  background-color: #04249c; /* Azul escuro */
+  border-radius: 0; /* Remove os cantos arredondados */
+  width: 100%; /* Garante que o card preencha a tela horizontalmente */
+}
+
+/* Centraliza todo o conteúdo do card */
+ion-card-header, ion-card-content {
+  text-align: center; /* Centraliza o texto */
+}
   
-  /* Centraliza todo o conteúdo do card */
-  ion-card-header, ion-card-content {
-    text-align: center; /* Centraliza o texto */
-  }
+/* Título principal (bem-vindo) */
+h1, h2{
+  color: white; /* Texto branco */
+}
   
-  /* Título principal (bem-vindo) */
-  h1, h2{
-    color: white; /* Texto branco */
-  }
-  
-  /* Título principal (bem-vindo) */
-  h1 {
-    font-size: 36px; /* Tamanho da fonte */
-    margin: 10px 0; /* Margem acima e abaixo do título */
-    font-weight: bold; /* Deixa o texto em negrito */
-  }
+/* Título principal (bem-vindo) */
+h1 {
+  font-size: 36px; /* Tamanho da fonte */
+  margin: 10px 0; /* Margem acima e abaixo do título */
+  font-weight: bold; /* Deixa o texto em negrito */
+}
   
   /* Subtítulo */
-  h2 {
-    font-size: 18px; /* Tamanho do subtítulo */
-  }
+h2 {
+  font-size: 18px; /* Tamanho do subtítulo */
+}
+
+
+.profile-image {
+  width: 150px;  /* Tamanho da imagem ajustado para 150px */
+  height: 150px;  /* Tamanho da imagem ajustado para 150px */
+  border-radius: 50%;  /* Faz a imagem ficar redonda */
+  object-fit: cover;  /* Garante que a imagem preencha o contêiner sem distorção */
+  margin-bottom: 20px;
+
+  /* Borda branca estilizada */
+  border: 5px solid white;  /* Borda branca de 5px */
   
-  /* Botão de Sair */
-  ion-button {
-    margin: 20px auto; /* Margem superior e inferior, centraliza o botão */
-    width: 90%; /* Largura do botão */
-    border-radius: 8px; /* Cantos arredondados do botão */
-  }
+  /* Sombra sutil ao redor da borda para um efeito 3D */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);  /* Sombra suave */
   
-  .perfil-title {
-    font-size: 25px; /* Tamanho do subtítulo */
+  /* Efeito de transição suave para quando a imagem for carregada ou alterada */
+  transition: all 0.3s ease-in-out;
+
+  /* Efeito de foco ou hover para dar uma interação visual */
+  &:hover {
+    transform: scale(1.05);  /* Aumenta levemente a imagem quando o mouse passa por cima */
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);  /* Aumenta a sombra ao passar o mouse */
   }
+}
+
+.edit-icon {
+  display: inline-block;
+  color: rgb(255, 255, 255);
+  font-size: 40px;
+  margin-top: -16vw;
+  margin-right: -28vw;
+}
+
+input[type="file"] {
+  display: none; /* Torna o input invisível */
+}

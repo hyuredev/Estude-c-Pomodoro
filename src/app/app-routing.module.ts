@@ -13,10 +13,6 @@ const routes: Routes = [
   {
     path: 'perfil',
     loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule)
-  },
-  {
-    path: 'esquecisenha',
-    loadChildren: () => import('./esquecisenha/esquecisenha.module').then( m => m.EsquecisenhaPageModule)
   }
 ];
 @NgModule({

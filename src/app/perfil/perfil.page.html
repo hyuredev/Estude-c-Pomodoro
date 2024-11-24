@@ -1,20 +1,28 @@
 <ion-header>
   <ion-toolbar>
+    <ion-title>Perfil</ion-title>
     <ion-buttons slot="start">
       <ion-button (click)="goToTab1()">
         <ion-icon name="chevron-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title class="perfil-title">Perfil</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-card>
     <ion-card-header>
-      <ion-card-title>
-        <ion-icon name="person-circle-outline" style="font-size: 100px;"></ion-icon> <!-- Ícone da pessoa centralizado -->
-      </ion-card-title>
+      <div class="ion-text-center">
+        <!-- Imagem de Perfil -->
+        <img id="profileImage" src="assets/img/avatar.png" alt="Foto de Perfil" class="profile-image">
+      </div>
+
+      <label for="fileInput" class="edit-icon" >
+        <ion-icon name="create"></ion-icon>
+      </label>
+
+      <input type="file" id="fileInput" accept="image/*" (change)="onFileChange($event)" />
+
       <h1>Bem-vindo {{ usuarioLogado.name }}</h1>
     </ion-card-header>
     <ion-card-content>
@@ -23,13 +31,15 @@
   </ion-card>
   
   <br />
-  <div *ngIf="usuarioLogado">
-    <h2>Perfil</h2>
-    <p><strong>Nome:</strong> {{ usuarioLogado.name }}</p>
-    <p><strong>Email:</strong> {{ usuarioLogado.email }}</p>
-    <p><strong>CPF:</strong> {{ usuarioLogado.cpf }}</p>
-  </div>
-  
+
+  <ion-card>
+    <div *ngIf="usuarioLogado">
+      <h2>Perfil</h2>
+      <p><strong>Nome:</strong> {{ usuarioLogado.name }}</p>
+      <p><strong>Email:</strong> {{ usuarioLogado.email }}</p>
+      <p><strong>CPF:</strong> {{ usuarioLogado.cpf }}</p>
+    </div>
+  </ion-card>
   <!-- Botão de Sair -->
   <ion-button (click)="logout()" expand="block" color="danger" style="margin-top: 20px;">
     Sair
