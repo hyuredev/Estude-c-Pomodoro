@@ -28,30 +28,28 @@
   <!-- Tarefas Completas e Tempo Produtivo -->
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Resumo da Produtividade</ion-card-title>
+      <ion-card-title>Ranking de Produtividade</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <p>Tarefas Completas: {{ completedTasks }}</p>
-      <p>Tempo Total Produtivo: {{ formatTime(totalProductiveTime) }}</p>
+
     </ion-card-content>
   </ion-card>
 
   <!-- Atividades Recentes -->
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Atividades Recentes</ion-card-title>
+      <ion-card-title>Tarefas Concluídas</ion-card-title>
     </ion-card-header>
+  
     <ion-card-content>
       <ion-list>
         <ion-item *ngFor="let task of completedTasks">
           <ion-label>
-            <h2>{{ task.title }}</h2>
-            <p>{{ task.description }}</p>
-            <p>Tempo Gasto: {{ task.initialTime / 60 }} minutos</p>
+            <h2>{{ task.title }} - Concluída</h2>
+            <p>Ciclos: {{ task.cycles }}</p>
           </ion-label>
         </ion-item>
       </ion-list>
     </ion-card-content>
   </ion-card>
-
 </ion-content>

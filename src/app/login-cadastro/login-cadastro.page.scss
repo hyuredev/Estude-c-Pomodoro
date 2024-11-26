@@ -102,3 +102,47 @@ ion-input-password-toggle{
 ion-content {
   --background: linear-gradient(135deg, rgb(195, 0, 255), rgb(2, 0, 94)) !important; /* Degradê diagonal */
   }
+
+///////
+/* Estilos para o botão "Continuar" */
+.custom-button::part(native) {
+  background-color: #007bff !important; /* Fundo azul */
+  border: 2px solid #ccc !important; /* Borda cinza sólida */
+  color: #ffffff !important; /* Cor do texto branca */
+  font-size: 14px; /* Tamanho da fonte */
+  padding: 8px 16px; /* Ajuste de padding para botões mais compactos */
+  text-align: center; /* Alinha o texto ao centro */
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  width: 100%; /* Ajusta a largura para o botão preencher seu contêiner */
+  height: 50px; /* Ajusta a altura do botão */
+}
+
+/* Efeito de hover no botão "Continuar" */
+.custom-button::part(native):hover {
+  background-color: #0056b3 !important; /* Fundo azul mais escuro ao passar o mouse */
+  border-color: #888 !important; /* Borda cinza mais escura ao passar o mouse */
+  color: #ffffff !important; /* Cor do texto ao passar o mouse */
+  transform: scale(1.05); /* Leve aumento de tamanho ao passar o mouse */
+}
+
+/* Estilos para o botão "Login com Google" */
+.google-login-btn {
+  display: flex; /* Alinha o conteúdo (ícone e texto) na mesma linha */
+  justify-content: center; /* Centraliza o conteúdo */
+  align-items: center; /* Alinha verticalmente */
+  gap: 10px; /* Espaçamento entre o ícone e o texto */
+  padding: 8px 16px; /* Ajusta o padding do botão */
+}
+
+.google-login-btn img {
+  width: 20px; /* Tamanho do ícone */
+  height: 20px; /* Tamanho do ícone */
+}
+
+/* Efeito de hover no botão "Login com Google" */
+.google-login-btn::part(native):hover {
+  background-color: #f1f1f1 !important; /* Fundo levemente cinza ao passar o mouse */
+  border-color: #888 !important; /* Borda cinza mais escura ao passar o mouse */
+  color: #333 !important; /* Cor do texto ao passar o mouse */
+  transform: scale(1.05); /* Leve aumento de tamanho */
+}

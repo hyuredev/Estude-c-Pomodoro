@@ -41,13 +41,13 @@
     </ion-button>
   </div>
 
-  <!-- Botão de envio -->
   <ion-button id="open-toast" expand="block" (click)="submitLogin()" class="custom-button">
     Continuar
   </ion-button>
 
   <p style="text-align: center; margin: 10px 0;">Ou continuar com</p>
 
+  <!-- Botão de login com Google -->
   <ion-button class="google-login-btn" (click)="googleLogin()" style="background-color: whitesmoke;">
     <img src="assets/img/icon-google.png" alt="Google logo" class="google-logo">
     Login com Google
@@ -56,8 +56,6 @@
   <div style="text-align: center; margin-top: 20px;">
     <p>Não tem uma conta? <a id="open-modal" (click)="openSignupModal()" style="color: inherit; text-decoration: underline; cursor: pointer;">Cadastre-se</a></p>
   </div>
-
-  <ion-toast trigger="open-toast" message="Login realizado com sucesso!" [duration]="3000" icon="checkmark-circle"></ion-toast>
 
   <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
     <ng-template>

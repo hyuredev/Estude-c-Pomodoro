@@ -25,23 +25,21 @@
 
       <h1>Bem-vindo {{ usuarioLogado.name }}</h1>
     </ion-card-header>
-    <ion-card-content>
+    <div>
       <h2>Veja aqui o que você pode fazer com a sua conta</h2>
-    </ion-card-content>
-  </ion-card>
-  
-  <br />
-
-  <ion-card>
-    <div *ngIf="usuarioLogado">
-      <h2>Perfil</h2>
-      <p><strong>Nome:</strong> {{ usuarioLogado.name }}</p>
-      <p><strong>Email:</strong> {{ usuarioLogado.email }}</p>
-      <p><strong>CPF:</strong> {{ usuarioLogado.cpf }}</p>
     </div>
   </ion-card>
+
+  <ion-card-content>
+    <div *ngIf="usuarioLogado">
+      <p><strong>Nome:</strong> {{ usuarioLogado.name }}</p><br/>
+      <p><strong>Email:</strong> {{ usuarioLogado.email }}</p><br/>
+      <p><strong>CPF:</strong> {{ usuarioLogado.cpf }}</p><br/>
+    </div>
+  </ion-card-content>
+
   <!-- Botão de Sair -->
-  <ion-button (click)="logout()" expand="block" color="danger" style="margin-top: 20px;">
+  <ion-button (click)="logout()" expand="block" color="danger" class="sairButton">
     Sair
   </ion-button>
 </ion-content>

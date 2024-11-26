@@ -38,8 +38,6 @@ export class PerfilPage {
     this.router.navigate(['/tabs']);
   }
 
-
-
   // Função chamada quando o usuário escolhe um arquivo
   onFileChange(event: any) {
     const file = event.target.files[0];

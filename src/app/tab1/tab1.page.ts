@@ -1,6 +1,8 @@
 import { Component} from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';  // Adicionando a importação do ToastController
+import { TaskService } from '../services/task.service';  // Importe o serviço
 
 @Component({
   selector: 'app-tab1',
@@ -33,11 +35,21 @@ export class Tab1Page{
   // Ciclos completos realizados para contagem total
   completedCyclesTask = 0;  // Inicialize a variável no início
 
+  // Variável que controla a visibilidade do formulário
+  showCreateTask: boolean = false;  
+
   constructor(
     private afAuth: AngularFireAuth,
-    private router: Router
+    private router: Router,
+    private taskService: TaskService,
+    private toastController: ToastController  // Injeta o ToastController
   ) {
     this.setTimer();
+  }
+
+  // Função para alternar a visibilidade do formulário
+  toggleCreateTask() {
+    this.showCreateTask = !this.showCreateTask;
   }
 
   setTimer() {
@@ -90,36 +102,40 @@ export class Tab1Page{
     this.switchMode();
   }
 
-
   switchMode() {
     if (this.mode === 'pomodoro') {
-        // Incrementa completedCyclesTask após cada Pomodoro
-        this.completedCyclesTask++;
-        console.log(`Pomodoro completo! Total de ciclos completos: ${this.completedCyclesTask}`);
-
-        // Lógica para alternar para o intervalo após Pomodoro
-        if (this.completedCycles % 3 === 0 && this.completedCycles !== 0) {
-            console.log(`Ciclo ${this.completedCycles}: Mudando para Long Break`);
-            this.mode = 'longBreak';  // Após 3 ciclos, será um Long Break
-        } else {
-            console.log(`Ciclo ${this.completedCycles}: Mudando para Short Break`);
-            this.mode = 'shortBreak';  // Caso contrário, será um Short Break
-        }
+      // Incrementa completedCyclesTask após cada Pomodoro
+      this.completedCyclesTask++;
+      console.log(`Pomodoro completo! Total de ciclos completos: ${this.completedCyclesTask}`);
+  
+      // Lógica para alternar para o intervalo após Pomodoro
+      if (this.completedCycles % 3 === 0 && this.completedCycles !== 0) {
+        console.log(`Ciclo ${this.completedCycles}: Mudando para Long Break`);
+        this.mode = 'longBreak';  // Após 3 ciclos, será um Long Break
+      } else {
+        console.log(`Ciclo ${this.completedCycles}: Mudando para Short Break`);
+        this.mode = 'shortBreak';  // Caso contrário, será um Short Break
+      }
     } else if (this.mode === 'shortBreak' || this.mode === 'longBreak') {
-        // Após o Long Break, os ciclos são resetados
-        if (this.mode === 'longBreak') {
-            console.log(`Após Long Break: Resetando ciclos para 0`);
-            this.completedCycles = 0; // Reseta os ciclos após Long Break
-        } else {
-            console.log(`Ciclo ${this.completedCycles}: Incrementando ciclos completos`);
-            this.completedCycles++;  // Incrementa os ciclos completos
-        }
-
-        console.log('Voltando para Pomodoro');
-        this.mode = 'pomodoro';  // Volta para o ciclo Pomodoro
+      // Após o Long Break, os ciclos são resetados
+      if (this.mode === 'longBreak') {
+        console.log(`Após Long Break: Resetando ciclos para 0`);
+        this.completedCycles = 0; // Reseta os ciclos após Long Break
+      } else {
+        console.log(`Ciclo ${this.completedCycles}: Incrementando ciclos completos`);
+        this.completedCycles++;  // Incrementa os ciclos completos
+      }
+  
+      console.log('Voltando para Pomodoro');
+      this.mode = 'pomodoro';  // Volta para o ciclo Pomodoro
+  
+      // Exibe o toast "Hora do trabalho!" quando entrar no modo Pomodoro
+      this.presentToast("Hora do trabalho!", 'success');
     }
+  
     this.setTimer();
   }
+  
 
   updateDisplay() {
     const minutes = Math.floor(this.timeLeft / 60);
@@ -159,6 +175,7 @@ export class Tab1Page{
         // Reseta os campos de entrada
         this.taskTitle = '';
         this.taskCycles = 1;  // Resetando os campos de entrada para valores padrão
+        this.showCreateTask = false;  // Esconde o formulário novamente após a criação
     }
   }
 
@@ -177,7 +194,6 @@ export class Tab1Page{
 
   startTask(task: { title: string, cycles: number, status: string, isSelected: boolean }) {
     let cyclesCompleted = 0;
-    
 
     task.status = 'Em progresso'; // Marca como "Em progresso"
 
@@ -187,19 +203,22 @@ export class Tab1Page{
         console.log(`Tarefa ${task.title}: Ciclo ${this.completedCyclesTask} de ${task.cycles}`);
       } else {
         task.status = 'Concluída';
-        this.completedCyclesTask = 0
+        this.completedCyclesTask = 0;
         clearInterval(intervalId);
+
+        // Exibe o Toast de sucesso após concluir a tarefa
+        this.presentToast("Tarefa concluída! Você está no caminho certo!🎉😀", 'success');
         
-        // Mover tarefa para tarefas concluídas
-        this.completedTasks.push({
+        // Mover tarefa para o serviço de tarefas concluídas
+        this.taskService.addCompletedTask({
           title: task.title,
           cycles: task.cycles
         });
-        
+
         // Remover tarefa da lista de tarefas pendentes
         this.tasks = this.tasks.filter(t => t !== task);
       }
-    }, 1000); // Executa a cada 1 segundo, simulando um ciclo.
+    }, 1000);  // Executa a cada 1 segundo, simulando um ciclo.
   }
   
   //Verifica se o usuario está logado, e direciona ou para perfil, ou para login
@@ -211,5 +230,15 @@ export class Tab1Page{
         this.router.navigate(['/login-cadastro']);
       }
     });
+  }
+
+  async presentToast(message: string, color: string = 'success'): Promise<void> {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 3000,  // Duração do toast (em milissegundos)
+      position: 'bottom',  // Posição do toast (bottom, top, middle)
+      color: color,  // Cor do toast (light, dark, success, danger, etc.)
+    });
+    toast.present();
   }
 }

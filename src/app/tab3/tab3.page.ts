@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Tarefa } from '../models/tarefa';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
+import { TaskService } from '../services/task.service';  // Importe o serviço
+
 
 @Component({
   selector: 'app-tab3',
@@ -9,20 +11,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./tab3.page.scss'],
 })
 export class Tab3Page{
-  completedTasks: Tarefa[] = []; // Tarefas concluídas
   weekDays: string[] = ['S', 'T', 'Q', 'Q', 'S', 'S', 'D'];
-  totalProductiveTime: number = 0; // Total de tempo produtivo em segundos
-  recentActivities: any[] = []; // Lista de atividades recentes
+  completedTasks: Array<{ title: string, cycles: number }> = [];
 
   constructor(
     private afAuth: AngularFireAuth,
     private router: Router,
+    private taskService: TaskService
   ) {}
 
-  calculateProductivity() {
-    // Aqui você pode calcular as tarefas completas e o tempo total
-    this.totalProductiveTime = this.recentActivities.reduce((total, activity) => total + activity.timeSpent, 0);
+  ngOnInit() {
+    // Ao carregar a página, obtemos as tarefas concluídas do serviço
+    this.completedTasks = this.taskService.getCompletedTasks();
   }
+
+
 
   formatTime(seconds: number): string {
     const minutes = Math.floor(seconds / 60);
